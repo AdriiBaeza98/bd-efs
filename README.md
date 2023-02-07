@@ -91,10 +91,24 @@ Para ello, cambiaremos la ruta del documento a nuestro directorio *"efs-mount"*:
 
 ![edicionhttpd](img/14-EdicionhttpdLinux02.png)
 
-Al editar y guardar los cambios, ya sería posible introducir la dirección IP de cualquiera de nuestras máquinas EC2 en cualquier navegador, y debería dirigirnos a la página web. Con esto ya tenemos montada toda la arquitectura necesaria.
+Al editar y guardar los cambios, ya sería posible introducir la dirección IP de cualquiera de nuestras máquinas EC2 en cualquier navegador, y debería dirigirnos a la página web.
 
-**6. Direcciones IP de instancias EC2**
+**6. Creación balanceador**
 
-Linux01 --> [3.90.208.161](http://3.90.208.161)
+Para finalizar, crearemos un balanceador que conectará las dos instancias EC2. Como AMI elegiremos Ubuntu, y habilitaremos el tráfico HTTP. El resto de configuraciones las dejaremos por defecto.
+Posteriormente, nos conectaremos al balanceador mediante conexión EC2 y una vez dentro, le instalamos apache2 (*"sudo apt install apache2"*).
+Al instalar apache2, necesitamos introducir la siguiente serie de comandos que servirán para permitir que nuestra EC2 actúe como balanceador:
 
-Linux02 --> [54.198.113.186](http://54.198.113.186)
+![comandosBalanceador](img/15-comandosBalanceador.png)
+
+Al introducirlos, reiniciamos apache2 (*"sudo systemctl restart apache2"*). Posteriormente, vamos a editar el archivo *"000-default.conf"* que se encuentra en el directorio *"/etc/apache2/sites-enabled"*. Dentro del archivo, introduciremos el siguiente texto:
+
+![edicion000](img/16-edicion000.png)
+
+Como vemos en la imagen, debemos introducir el nuevo texto al final del archivo, encima de la etiqueta de cierre *"VirtualHost"*. Guardamos el archivo y salimos. Al terminar esto, debería accedernos a nuestra página web de Netflix introduciendo la IP del balanceador. Si accede de forma correcta, ya estaría todo terminado.
+
+**7. Direcciones IP de balanceador**
+
+IP pública --> [3.237.174.147](http://3.237.174.147)
+
+IP privada --> [172.31.5.154](http://172.31.5.154)
