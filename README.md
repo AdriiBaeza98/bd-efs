@@ -1,4 +1,4 @@
-# Documentación práctica 4.4
+# Práctica 4.6: Documentación final Clúster Web, MultiAZ
 
 En esta práctica vamos a crear una arquitectura EFS-EC2-MultiAZ en la nube de AWS. Para ello necesitamos crear dos máquinas EC2 y un sistema de archivos EFS. También enlazaremos todo con una RDS y con un EC2 balanceador.
 
